@@ -31,7 +31,8 @@ unsigned long RcvdTime_start;
 unsigned long RcvdTime_finish;
 unsigned long RcvdTime = RcvdTime_finish - RcvdTime_start;
 
-unsigned long TravelTime = ExecTime - (SendTime + RcvdTime); // in ms
+unsigned long TravelTime = ExecTime - (SendTime + RcvdTime); // in ms #(SendTime + RcvdTime) is probably larger than ExecTime. Suggestion:  (SendTime + RcvdTime) - ExecTime
+// Also, If the measured time is the time it takes the signal to get out of the arduino and come back, then we do not need a variable for each.
 unsigned long Distance = (TravelTime/2)*speed_sound; // in ft
 
 /***********************************************************************************************************/
@@ -50,9 +51,9 @@ char rcvd_mes[32];                            // string to store message receive
 // This runs once and sets up all Serial ports and pins
 void setup() {
 
-  Serial.begin(1200,SERIAL_8N2);                    // This belongs to UART0 Which connects to computer 
-  Serial1.begin(1200, SERIAL_8N2);                  // This belongs to UART1 which is transmitting the message 
-  Serial2.begin(1200, SERIAL_8N2);                  // This belongs to UART2 which is receiving the transmitted message 
+  Serial.begin(1200,SERIAL_8N2);                    // This belongs to UART0 Which connects to computer
+  Serial1.begin(1200, SERIAL_8N2);                  // This belongs to UART1 which is transmitting the message
+  Serial2.begin(1200, SERIAL_8N2);                  // This belongs to UART2 which is receiving the transmitted message
   Serial.println("*********** Program Ready **********");
   Serial.println("");
 
