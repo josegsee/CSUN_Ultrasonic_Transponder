@@ -1,0 +1,16 @@
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(1200,  SERIAL_8N2); // Set baud rate to 1200
+}
+
+void sendStringWithDelay(String inputString, int delayTime) {
+  int stringLength = inputString.length();
+  for (int i = 0; i < stringLength; i++) {
+    Serial.write(inputString[i]); // send each character one by one
+    delayMicroseconds(delayTime); // add a delay between characters
+  }
+}
+
+void loop() {
+  sendStringWithDelay("Hello World ", 11000);
+}
